@@ -1,25 +1,26 @@
-#ifndef GRAPH_H_INCLUDED
-#define GRAPH_H_INCLUDED
 #include <iostream>
-
+#include <string>
 using namespace std;
 
-struct edge;
-struct vertex;
 
-typedef vertex* adrVertex;
-typedef edge* adrEdge;
+typedef struct vertex *adrVertex;
+typedef struct edge *adrEdge;
 
-struct edge{
-    int tujuan;
-    double biaya;
-    string tipeTrans;
-};
-
-struct graph{
-
+struct vertex {
+    char idVertex;
+    adrVertex nextVertex;
+    adrEdge firstEdge;
 };
 
 
+struct edge {
+    char destVertexId;
+    string lokasi;
+    int jarak;
+    adrEdge nextEdge;
+};
 
-#endif // GRAPH_H_INCLUDED
+
+struct graph {
+    adrVertex firstVertex;
+};
