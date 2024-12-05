@@ -115,11 +115,3 @@ void showGraph(const graph &G) {
     }
 }
 
-int main() {
-    graph G;
-    initGraph(G);
-    buildGraph(G);
-    showGraph(G);
-
-    return 0;
-}
