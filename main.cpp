@@ -2,8 +2,12 @@
 
 using namespace std;
 
-int main()
-{
-    cout << "Hello world!" << endl;
+int main() {
+    graph G;
+    initGraph(G);
+    buildGraph(G);
+    showGraph(G);
+
     return 0;
 }
+
