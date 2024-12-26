@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1735242912 source:c:\users\asus\onedrive\documents\strukturdata\tubesstd\main.cpp
+	"graph.h"
+	<iostream>
+
+1735243026 c:\users\asus\onedrive\documents\strukturdata\tubesstd\graph.h
+	<iostream>
+	<string>
+
+1735152808 source:c:\users\asus\onedrive\documents\strukturdata\tubesstd\graf.cpp
+	"graph.h"
+
+1735242820 source:c:\users\asus\onedrive\documents\strukturdata\tubesstd\graph.cpp
+	"graph.h"
+
