@@ -218,7 +218,7 @@ string getStationName(graph &G, string idVertex) {
 }
 
 
-void findRouteSimple(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime) {
+void findRoute(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime) {
     // Cari vertex awal berdasarkan ID
     adrVertex curr = G.firstVertex;
     while (curr != nullptr && curr->idVertex != startVertexID) {
@@ -257,7 +257,7 @@ void findRouteSimple(graph &G, string startVertexID, string endVertexID, string 
         }
 
         if (!alreadyVisited) {
-            findRouteSimple(G, edge->destVertexId, endVertexID, visited, visitedCount, totalTime + edge->jarak);
+            findRoute(G, edge->destVertexId, endVertexID, visited, visitedCount, totalTime + edge->jarak);
         }
 
         edge = edge->nextEdge;
