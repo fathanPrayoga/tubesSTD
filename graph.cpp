@@ -1,10 +1,10 @@
 #include "graph.h"
 
-void createEdge(string destVertexID, int edgeWeight, adrEdge &e, string edgeLokasi) {
+void createEdge(string destVertexID, int waktuTempuh, adrEdge &e, string rute) {
     e = new edge;
     e->destVertexId = destVertexID;
-    e->lokasi = edgeLokasi;
-    e->jarak = edgeWeight;
+    e->rute = rute;
+    e->waktuTempuh = waktuTempuh;
     e->nextEdge = nullptr;
 }
 
@@ -85,12 +85,12 @@ void showGraph(const graph &G) {
 
     cout << "=== Isi Graph ===" << endl;
     while (currVertex != nullptr) {
-        cout << "Stasiun: " << currVertex->idVertex << " (" << currVertex->namaStasiun << ")" << endl;
+        cout << "ID: " << currVertex->idVertex << " (" << currVertex->namaStasiun << ")" << endl;
 
         adrEdge currEdge = currVertex->firstEdge;
         while (currEdge != nullptr) {
             cout << "  -> " << currEdge->destVertexId
-                 << " (Waktu: " << currEdge->jarak << " menit, Lokasi: " << currEdge->lokasi << ")" << endl;
+                 << " (Waktu: " << currEdge->waktuTempuh << " menit, Lokasi: " << currEdge->rute << ")" << endl;
             currEdge = currEdge->nextEdge;
         }
         cout << endl;
@@ -135,7 +135,7 @@ void printGraph(const graph &G, string startVertexID) {
 
                 if (destVertex != nullptr) {
                     cout << count << ". " << destVertex->namaStasiun << " (ke "
-                         << destVertex->namaStasiun << ", " << temp->jarak << " menit, " << temp->lokasi << ")\n";
+                         << destVertex->namaStasiun << ", " << temp->waktuTempuh << " menit, " << temp->rute << ")\n";
                 }
 
                 temp = temp->nextEdge;
@@ -197,7 +197,7 @@ void dekatStasiun(const graph &G, const string &stationID){ //nampilin stasiun y
         }
 
         if (destVertex != nullptr) {
-            cout << "- " << destVertex->namaStasiun << " (Waktu: " << edge->jarak << " menit, Lokasi: " << edge->lokasi << ")\n";
+            cout << "- " << destVertex->namaStasiun << " (Waktu: " << edge->waktuTempuh << " menit, Lokasi: " << edge->rute << ")\n";
         }
 
         edge = edge->nextEdge;
@@ -219,7 +219,7 @@ string getStationName(graph &G, string idVertex) {
 
 
 void findRoute(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime) {
-    // cari titik awal didalam data vertex atau stasiun yang ada
+    // Cari vertex awal berdasarkan ID
     adrVertex curr = G.firstVertex;
     while (curr != nullptr && curr->idVertex != startVertexID) {
         curr = curr->nextVertex;
@@ -238,7 +238,7 @@ void findRoute(graph &G, string startVertexID, string endVertexID, string visite
     if (startVertexID == endVertexID) {
         cout << "Rute yang ditemukan: ";
         for (int i = 0; i < visitedCount; i++) {
-            cout << getStationName(G, visited[i]); // Menampilkan nama stasiun
+            cout << getStationName(G, visited[i]); // Tampilkan nama stasiun
             if (i != visitedCount - 1) cout << " -> ";
         }
         cout << " (Total waktu tempuh: " << totalTime << " menit)" << endl;
@@ -257,7 +257,7 @@ void findRoute(graph &G, string startVertexID, string endVertexID, string visite
         }
 
         if (!alreadyVisited) {
-            findRoute(G, edge->destVertexId, endVertexID, visited, visitedCount, totalTime + edge->jarak);
+            findRoute(G, edge->destVertexId, endVertexID, visited, visitedCount, totalTime + edge->waktuTempuh);
         }
 
         edge = edge->nextEdge;
