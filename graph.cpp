@@ -205,3 +205,64 @@ void dekatStasiun(const graph &G, const string &stationID){ //nampilin stasiun y
 
     cout << endl;
 }
+
+string getStationName(graph &G, string idVertex) {
+    adrVertex curr = G.firstVertex;
+    while (curr != nullptr) {
+        if (curr->idVertex == idVertex) {
+            return curr->namaStasiun; // Kembalikan nama stasiun jika ditemukan
+        }
+        curr = curr->nextVertex;
+    }
+    return "Stasiun tidak ditemukan"; // Jika tidak ditemukan
+}
+
+
+void findRouteSimple(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime) {
+    // Cari vertex awal berdasarkan ID
+    adrVertex curr = G.firstVertex;
+    while (curr != nullptr && curr->idVertex != startVertexID) {
+        curr = curr->nextVertex;
+    }
+
+    if (curr == nullptr) {
+        cout << "Stasiun dengan ID " << startVertexID << " tidak ditemukan!" << endl;
+        return;
+    }
+
+    // Tambahkan stasiun saat ini ke daftar yang sudah dikunjungi
+    visited[visitedCount] = startVertexID;
+    visitedCount++;
+
+    // Jika kita sudah sampai di stasiun tujuan, hasilnya tampil
+    if (startVertexID == endVertexID) {
+        cout << "Rute yang ditemukan: ";
+        for (int i = 0; i < visitedCount; i++) {
+            cout << getStationName(G, visited[i]); // Tampilkan nama stasiun
+            if (i != visitedCount - 1) cout << " -> ";
+        }
+        cout << " (Total waktu tempuh: " << totalTime << " menit)" << endl;
+        return;
+    }
+
+    adrEdge edge = curr->firstEdge;
+    while (edge != nullptr) {
+        // Meriksa apakah stasiun tujuan udah pernah dikunjungi
+        bool alreadyVisited = false;
+        for (int i = 0; i < visitedCount; i++) {
+            if (visited[i] == edge->destVertexId) {
+                alreadyVisited = true;
+                break;
+            }
+        }
+
+        if (!alreadyVisited) {
+            findRouteSimple(G, edge->destVertexId, endVertexID, visited, visitedCount, totalTime + edge->jarak);
+        }
+
+        edge = edge->nextEdge;
+    }
+
+    // Backtracking: Keluarkan stasiun saat ini dari daftar yang dikunjungi
+    visitedCount--;
+}
