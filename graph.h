@@ -36,5 +36,7 @@ void addEdge(graph &G, string sourceVertexID, string destVertexID, int edgeWeigh
 void showGraph(const graph &G);
 void printGraph(const graph &G, string startVertexID);
 void dekatStasiun(const graph &G, const string &stationID);
+string getStationName(graph &G, string idVertex);
+void findRoute(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime);
 
 #endif
