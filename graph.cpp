@@ -52,26 +52,45 @@ void addVertex(graph &G, string newVertexID, string namaStasiun) {
 }
 
 void addEdge(graph &G, string sourceVertexID, string destVertexID, int edgeWeight, string edgeLokasi) {
-    adrVertex curr = G.firstVertex;
-    while (curr != nullptr && curr->idVertex != sourceVertexID) {
-        curr = curr->nextVertex;
+    adrVertex src = G.firstVertex;
+    while (src != nullptr && src->idVertex != sourceVertexID) {
+        src = src->nextVertex;
     }
 
-    if (curr != nullptr) {
-        adrEdge e;
-        createEdge(destVertexID, edgeWeight, e, edgeLokasi);
+    adrVertex dest = G.firstVertex;
+    while (dest != nullptr && dest->idVertex != destVertexID) {
+        dest = dest->nextVertex;
+    }
 
-        if (curr->firstEdge == nullptr) {
-            curr->firstEdge = e;
+    if (src != nullptr && dest != nullptr) {
+        adrEdge e1, e2;
+
+        // Tambahkan edge dari source ke destination
+        createEdge(destVertexID, edgeWeight, e1, edgeLokasi);
+        if (src->firstEdge == nullptr) {
+            src->firstEdge = e1;
         } else {
-            adrEdge edgeCurr = curr->firstEdge;
+            adrEdge edgeCurr = src->firstEdge;
             while (edgeCurr->nextEdge != nullptr) {
                 edgeCurr = edgeCurr->nextEdge;
             }
-            edgeCurr->nextEdge = e;
+            edgeCurr->nextEdge = e1;
+        }
+
+        // Tambahkan edge dari destination ke source (arah sebaliknya) karena graf tak berarah atau dua arah
+        createEdge(sourceVertexID, edgeWeight, e2, edgeLokasi);
+        if (dest->firstEdge == nullptr) {
+            dest->firstEdge = e2;
+        } else {
+            adrEdge edgeCurr = dest->firstEdge;
+            while (edgeCurr->nextEdge != nullptr) {
+                edgeCurr = edgeCurr->nextEdge;
+            }
+            edgeCurr->nextEdge = e2;
         }
     } else {
-        cout << "Stasiun asal tidak ditemukan: " << sourceVertexID << endl;
+        if (src == nullptr) cout << "Stasiun asal tidak ditemukan: " << sourceVertexID << endl;
+        if (dest == nullptr) cout << "Stasiun tujuan tidak ditemukan: " << destVertexID << endl;
     }
 }
 
