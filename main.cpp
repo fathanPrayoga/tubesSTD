@@ -3,17 +3,6 @@
 
 using namespace std;
 
-void menu() {
-    cout << "===== MENU =====" << endl;
-    cout << "1. Tambah Stasiun (Vertex)" << endl;
-    cout << "2. Tambah Jalur (Edge)" << endl;
-    cout << "3. Tampilkan Graph (Detail)" << endl;
-    cout << "4. Tampilkan Jalur Lintasan" << endl;
-    cout << "5. Tampilkan stasiun yang berdekatan" << endl;
-    cout << "6. Keluar" << endl;
-    cout << "================" << endl;
-}
-
 int main() {
     graph G;
     initGraph(G);
@@ -96,8 +85,23 @@ int main() {
                 cin >> sourceID;
                 dekatStasiun(G, sourceID);
                 break;
+            
+            case 6: {
+                cout << "Masukkan ID Stasiun Awal: ";
+                cin >> sourceID;
+                cout << "Masukkan ID Stasiun Tujuan: ";
+                cin >> destID;
 
-            case 6:
+                string visited[100]; // Array statis untuk menyimpan rute (maksimal 100 stasiun)
+                int visitedCount = 0; // Jumlah stasiun dalam rute
+
+                findRoute(G, sourceID, destID, visited, visitedCount, 0);
+
+                // Tidak ada break atau exit, sehingga program kembali ke menu
+                break;
+            }          
+
+            case 7: 
                 cout << "terima kasih sudah menggunakan program ini" <<endl;
                 break;
 
@@ -105,7 +109,7 @@ int main() {
                 cout << "Pilihan tidak valid." << endl;
                 break;
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
