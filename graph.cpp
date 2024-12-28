@@ -219,7 +219,7 @@ string getStationName(graph &G, string idVertex) {
 
 
 void findRoute(graph &G, string startVertexID, string endVertexID, string visited[], int &visitedCount, int totalTime) {
-    // Cari vertex awal berdasarkan ID
+    // cari titik awal didalam data vertex atau stasiun yang ada
     adrVertex curr = G.firstVertex;
     while (curr != nullptr && curr->idVertex != startVertexID) {
         curr = curr->nextVertex;
@@ -238,7 +238,7 @@ void findRoute(graph &G, string startVertexID, string endVertexID, string visite
     if (startVertexID == endVertexID) {
         cout << "Rute yang ditemukan: ";
         for (int i = 0; i < visitedCount; i++) {
-            cout << getStationName(G, visited[i]); // Tampilkan nama stasiun
+            cout << getStationName(G, visited[i]); // Menampilkan nama stasiun
             if (i != visitedCount - 1) cout << " -> ";
         }
         cout << " (Total waktu tempuh: " << totalTime << " menit)" << endl;
