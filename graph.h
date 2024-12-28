@@ -18,8 +18,8 @@ struct vertex {
 
 struct edge {
     string destVertexId;
-    string lokasi;
-    int jarak;
+    string rute;
+    int waktuTempuh;
     adrEdge nextEdge;
 };
 
@@ -27,7 +27,7 @@ struct graph {
     adrVertex firstVertex;
 };
 
-void createEdge(string destVertexID, int edgeWeight, adrEdge &e, string edgeLokasi);
+void createEdge(string destVertexID, int waktuTempuh, adrEdge &e, string rute);
 void createVertex(string newVertexID, string namaStasiun, adrVertex &v);
 void initGraph(graph &G);
 bool vertexExists(const graph &G, string id);
