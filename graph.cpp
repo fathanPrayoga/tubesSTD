@@ -130,7 +130,6 @@ void printGraph(const graph &G, string startVertexID) {
         return;
     }
 
-
     cout << curr->namaStasiun;
 
     while (curr != nullptr) {
@@ -139,7 +138,7 @@ void printGraph(const graph &G, string startVertexID) {
             break; // Tidak ada jalur keluar
         }
 
-        // Pilih stasiun yang rute cabang, tampilin pilihan
+        // Pilih stasiun yang rute cabang, tampilkan pilihan
         if (nextEdge->nextEdge != nullptr) {
             cout << "\n\nPilih rute keluar dari " << curr->namaStasiun << ":\n";
 
@@ -161,11 +160,17 @@ void printGraph(const graph &G, string startVertexID) {
                 count++;
             }
 
+            cout << "Pilih rute (1-" << count - 1 << " atau 0 untuk keluar): ";
             int choice;
-            cout << "Pilih rute (1-" << count - 1 << "): ";
             cin >> choice;
 
-            // milih jalur
+            // Jika pengguna memilih 0, keluar dari fungsi
+            if (choice == 0) {
+                cout << "Keluar dari navigasi rute.\n";
+                return;
+            }
+
+            // Memilih jalur berdasarkan input pengguna
             temp = nextEdge;
             for (int i = 1; i < choice && temp != nullptr; i++) {
                 temp = temp->nextEdge;
