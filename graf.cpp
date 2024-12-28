@@ -91,7 +91,7 @@ void showGraph(const graph &G) {
                  << " (Waktu: " << currEdge->waktuTempuh << " menit, Lokasi: " << currEdge->rute << ")" << endl;
             currEdge = currEdge->nextEdge;
         }
-
+        cout << endl;
         currVertex = currVertex->nextVertex;
     }
 }
